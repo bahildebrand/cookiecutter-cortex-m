@@ -1,3 +1,5 @@
+.SECONDARY:
+
 TOOLCHAIN := arm-none-eabi-
 CC := $(TOOLCHAIN)gcc
 OBJCPY := $(TOOLCHAIN)objcopy
@@ -5,7 +7,10 @@ SRC_DIR := src
 BUILD_DIR := build
 
 .PHONY: all
-all: $(BUILD_DIR) $(BUILD_DIR)/m4_example.bin
+all: m4_basic
+
+.PHONY: m4_basic
+m4_basic: $(BUILD_DIR)/m4_basic.bin
 
 $(BUILD_DIR):
 	@mkdir -p $(BUILD_DIR)
@@ -19,14 +24,14 @@ CFLAGS += -nostdlib \
 SRC := $(wildcard $(SRC_DIR)/*)
 OBJS := $(patsubst %.c, $(BUILD_DIR)/%.o, $(SRC))
 
-$(BUILD_DIR)/m4_example.bin: $(BUILD_DIR)/m4_example.elf
+$(BUILD_DIR)/%.bin: $(BUILD_DIR)/%.elf
 	$(OBJCPY) $< $@ -O binary
 
 $(BUILD_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-$(BUILD_DIR)/m4_example.elf: $(OBJS)
+$(BUILD_DIR)/%.elf: $(OBJS)
 	$(CC) -o $@ $^ -T link/link.ld $(CFLAGS)
 
 .PHONY: clean
