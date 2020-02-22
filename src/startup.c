@@ -7,11 +7,18 @@
 #include <stdint.h>
 
 extern uint32_t _stack_end;
+extern uint32_t _bss_start;
+extern uint32_t _bss_end;
+extern uint32_t _data_start;
+extern uint32_t _data_end;
+extern uint32_t _text_end;
 
 int main(void);
-void reset_handler(void);
-void nmi_handler(void);
-void hardfault_handler(void);
+static void reset_handler(void);
+static void nmi_handler(void);
+static void hardfault_handler(void);
+
+static void init_mem(void);
 
 struct vector_table {
         void *stack_val;
@@ -35,17 +42,32 @@ struct vector_table vec_table = {
         .hard_fault = (void*) hardfault_handler,
 };
 
-void reset_handler(void)
+static void init_mem(void)
 {
+        uint32_t *data_value_ptr = &_text_end;
+
+        for(uint32_t *bss_ptr = &_bss_start; bss_ptr < &_bss_end; bss_ptr++) {
+                *bss_ptr = 0u;
+        }
+
+        for(uint32_t *data_ptr = &_data_start; data_ptr < &_data_end;) {
+                *data_ptr++ = *data_value_ptr++;
+        }
+}
+
+static void reset_handler(void)
+{
+        init_mem();
+
         main();
 }
 
-void nmi_handler(void)
+static void nmi_handler(void)
 {
-
+        while(1) {;}
 }
 
-void hardfault_handler(void)
+static void hardfault_handler(void)
 {
-
+        while(1) {}
 }

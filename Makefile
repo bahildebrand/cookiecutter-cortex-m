@@ -1,6 +1,6 @@
-TOOLCHAIN := arm-none-eabi
-CC := $(TOOLCHAIN)-gcc
-OBJCPY := $(TOOLCHAIN)-objcopy
+TOOLCHAIN := arm-none-eabi-
+CC := $(TOOLCHAIN)gcc
+OBJCPY := $(TOOLCHAIN)objcopy
 SRC_DIR := src
 BUILD_DIR := build
 
@@ -19,7 +19,7 @@ CFLAGS += -nostdlib \
 SRC := $(wildcard $(SRC_DIR)/*)
 OBJS := $(patsubst %.c, $(BUILD_DIR)/%.o, $(SRC))
 
-$(BUILD_DIR)/m4_example.bin:$(BUILD_DIR)/m4_example.elf
+$(BUILD_DIR)/m4_example.bin: $(BUILD_DIR)/m4_example.elf
 	$(OBJCPY) $< $@ -O binary
 
 $(BUILD_DIR)/%.o: %.c
