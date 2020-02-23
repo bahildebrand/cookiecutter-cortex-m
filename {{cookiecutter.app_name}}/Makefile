@@ -8,10 +8,10 @@ SRC_DIR := src
 BUILD_DIR := build
 
 .PHONY: all
-all: m4_basic
+all: {{cookiecutter.app_name}}
 
-.PHONY: m4_basic
-m4_basic: $(BUILD_DIR)/m4_basic.bin
+.PHONY: {{cookiecutter.app_name}}
+{{cookiecutter.app_name}}: $(BUILD_DIR)/{{cookiecutter.app_name}}.bin
 
 $(BUILD_DIR):
 	@mkdir -p $(BUILD_DIR)

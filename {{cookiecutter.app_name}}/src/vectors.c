@@ -1,6 +1,6 @@
 /**
  * @file vectors.c
- * @author Blake Hildebrand (baugusthildebrand@gmail.com)
+ * @author {{cookiecutter.full_name}} ({{cookiecutter.email}})
  * @brief Exception vectors for cortex-m MCUs
  */
 

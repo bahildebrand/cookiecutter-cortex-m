@@ -1,6 +1,6 @@
 /**
  * @file startup.c
- * @author your name (you@domain.com)
+ ** @author {{cookiecutter.full_name}} ({{cookiecutter.email}})
  * @brief Startup initialization for cortex-m MCUs.
  */
 
