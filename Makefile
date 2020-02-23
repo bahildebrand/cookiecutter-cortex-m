@@ -2,6 +2,7 @@
 
 TOOLCHAIN := arm-none-eabi-
 CC := $(TOOLCHAIN)gcc
+LD := $(TOOLCHAIN)ld
 OBJCPY := $(TOOLCHAIN)objcopy
 SRC_DIR := src
 BUILD_DIR := build
@@ -16,6 +17,9 @@ $(BUILD_DIR):
 	@mkdir -p $(BUILD_DIR)
 
 INCLUDES += -Iinclude
+
+LDFLAGS += -Map=$(BUILD_DIR)/output.map \
+		   -T link/link.ld
 
 CFLAGS += -nostdlib \
 		  -mcpu=cortex-m4 \
@@ -35,7 +39,7 @@ $(BUILD_DIR)/%.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 $(BUILD_DIR)/%.elf: $(OBJS)
-	$(CC) -o $@ $^ -T link/link.ld $(CFLAGS)
+	$(LD) -o $@ $^ $(LDFLAGS)
 
 .PHONY: clean
 clean:
