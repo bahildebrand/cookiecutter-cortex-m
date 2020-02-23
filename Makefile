@@ -15,8 +15,11 @@ m4_basic: $(BUILD_DIR)/m4_basic.bin
 $(BUILD_DIR):
 	@mkdir -p $(BUILD_DIR)
 
+INCLUDES += -Iinclude
+
 CFLAGS += -nostdlib \
 		  -mcpu=cortex-m4 \
+		  $(INCLUDES) \
 		  -g \
 		  -Wall \
 		  -Werror
