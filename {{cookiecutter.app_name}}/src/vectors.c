@@ -10,6 +10,7 @@
 extern uint32_t _stack_end;
 
 int main(void);
+
 static void reset_handler(void);
 static void nmi_handler(void);
 static void hardfault_handler(void);
@@ -20,6 +21,10 @@ static void sv_call_handler(void);
 static void pend_sv_handler(void);
 static void systick_handler(void);
 
+/* Cortex-M vector table. These are all the core vectors as defined in the
+ * Cortex-M spec. MCU vendors will expand this table with interrupt vectors
+ * after the systick vector.
+ * https://developer.arm.com/docs/dui0553/latest/the-cortex-m4-processor/exception-model/vector-table */
 struct vector_table {
         void *stack_val;
         void *reset;
@@ -34,6 +39,8 @@ struct vector_table {
         void *systick;
 };
 
+/* Tells the linker to place vec_table in the .vecs section. This allows us to
+ * place this section at the start of our memory map in the linker script. */
 __attribute__ ((section(".vecs")))
 struct vector_table vec_table = {
         .stack_val = (void*) &_stack_end,
