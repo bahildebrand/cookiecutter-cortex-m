@@ -24,7 +24,7 @@ LDFLAGS += -Map=$(BUILD_DIR)/output.map \
 		   -T link/link.ld
 
 CFLAGS += -nostdlib \
-		  -mcpu=cortex-m4 \
+		  -mcpu={{cookiecutter.cpu}} \
 		  -ffunction-sections \
 		  -fdata-sections \
 		  $(INCLUDES) \

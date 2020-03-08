@@ -7,5 +7,6 @@
 	"ram_origin": "0x20000000",
 	"ram_length": "0x40000",
 	"flash_origin": "0x0",
-	"flash_length": "0x100000"
+	"flash_length": "0x100000",
+	"cpu": ["cortex-m4", "cortex-m0"]
 }

@@ -4,7 +4,7 @@ A cookiecutter project for spinning up Cortex-M projects quickly.
 
 ## Core Support
 
-Currently on cortex-m4 has been tested.
+Tested support for cortex-m4 and cortex-m0.
 
 ## Quickstart
 
