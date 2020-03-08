@@ -11,7 +11,7 @@ BUILD_DIR := build
 all: {{cookiecutter.app_name}}
 
 .PHONY: {{cookiecutter.app_name}}
-{{cookiecutter.app_name}}: $(BUILD_DIR)/{{cookiecutter.app_name}}.bin
+{{cookiecutter.app_name}}: $(BUILD_DIR)/{{cookiecutter.app_name}}.bin $(BUILD_DIR)/{{cookiecutter.app_name}}.dump.txt
 
 $(BUILD_DIR):
 	@mkdir -p $(BUILD_DIR)
@@ -19,10 +19,13 @@ $(BUILD_DIR):
 INCLUDES += -Iinclude
 
 LDFLAGS += -Map=$(BUILD_DIR)/output.map \
+		   --gc-sections \
 		   -T link/link.ld
 
 CFLAGS += -nostdlib \
 		  -mcpu=cortex-m4 \
+		  -ffunction-sections \
+		  -fdata-sections \
 		  $(INCLUDES) \
 		  -g \
 		  -Wall \
@@ -40,6 +43,9 @@ $(BUILD_DIR)/%.o: %.c
 
 $(BUILD_DIR)/%.elf: $(OBJS)
 	$(LD) -o $@ $^ $(LDFLAGS)
+
+$(BUILD_DIR)/%.dump.txt: $(BUILD_DIR)/%.elf
+	$(OBJDMP) -D $^ > $@
 
 .PHONY: clean
 clean:
