@@ -3,6 +3,7 @@
 TOOLCHAIN := arm-none-eabi-
 CC := $(TOOLCHAIN)gcc
 LD := $(TOOLCHAIN)ld
+OBJDMP := $(TOOLCHAIN)objdump
 OBJCPY := $(TOOLCHAIN)objcopy
 SRC_DIR := src
 BUILD_DIR := build
