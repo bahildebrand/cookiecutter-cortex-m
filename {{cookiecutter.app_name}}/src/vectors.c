@@ -33,8 +33,10 @@ struct vector_table {
         void *mem_management_fault;
         void *bus_fault;
         void *usage_fault;
-        void *reservd[4];
+        void *reserved1[4];
         void *sv_call;
+        void *debug;
+        void *reserved2;
         void *pend_sv;
         void *systick;
 };
